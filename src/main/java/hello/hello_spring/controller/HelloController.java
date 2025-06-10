@@ -4,9 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
-public class HelloController {
+public class HelloController implements WebMvcConfigurer {
 
     @GetMapping(value = "/hello")
     public String hello(Model model){
@@ -21,6 +22,9 @@ public class HelloController {
         // thymeleaf 엔진에게 넘긴 후 후처리 하고 html 파일을 던진다
         // static 경로의 파일인경우 엔진을 후처리 없이 바로 html 파일을 던진다.
         model.addAttribute("name", name);
+
         return "hello-template";
+
+
     }
 }
