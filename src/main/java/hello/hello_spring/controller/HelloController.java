@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
@@ -24,7 +25,34 @@ public class HelloController implements WebMvcConfigurer {
         model.addAttribute("name", name);
 
         return "hello-template";
+    }
 
+    @GetMapping(value = "hello-string")
+    @ResponseBody
+    public String helloString(@RequestParam("name") String name) {
+        // Data를 return 값 그대로 내려준다.
+        return "hello " + name;
+    }
 
+    @GetMapping(value = "hello-api")
+    @ResponseBody
+    public Hello helloApi(@RequestParam("name") String name) {
+        // Data를 return 값 그대로 내려준다.
+        Hello h = new Hello();
+        h.setName(name);
+        // return ==> {"name":"String!!!!!!!!!!!!!!"} << @ResponseBody 명명시 > JSON 데이터로 리턴된다.
+        return h;
+    }
+
+    static class Hello {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }

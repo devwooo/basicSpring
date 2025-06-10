@@ -18,8 +18,6 @@
 - WebMvcConfigurer 를 상속하여 addResourceHandlers를 오버라이딩하여 resource경로를 추가할 수 있다.
 - (Spring MVC so that you can modify that behavior by adding your own WebMvcConfigurer and overriding the addResourceHandlers method.)
 
-
-
 ```
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -27,6 +25,11 @@
        .addResourceLocations("classpath:/my-static/"); // 실제 위치
     } 
 ```
+### API
+- @ResponseBody 사용시 
+  - 스프링컨테이너가 @ResponseBody 가 붙어있을경우 HttpMessageConverter 위임  > ( 객체인경우 > MappingJackson2HttpMessageConverter, 기본 문자인경우 > StringHttpMessageConverter)
+  - 그다음 웹브라우저 또는 서버로 리턴해준다.
+  - HTTP Accept 헤더와 서버의 컨트롤러 반환 타입정보 둘을 조합해서 HttpMesaageConverter가 선택된다.
 
 
 
