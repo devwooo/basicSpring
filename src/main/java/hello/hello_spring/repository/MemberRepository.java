@@ -2,9 +2,11 @@ package hello.hello_spring.repository;
 
 
 import hello.hello_spring.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 
 public interface MemberRepository {
     Member save(Member member);

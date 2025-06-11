@@ -32,7 +32,28 @@
   - HTTP Accept 헤더와 서버의 컨트롤러 반환 타입정보 둘을 조합해서 HttpMesaageConverter가 선택된다.
 
 
+### DI(Dependency Injection)
+- memberController > memberService > memberRepository 
+- ComponentScan 을 통해  @Controller, @Service, @Repository 등의 어노테이션을 읽어 @Bean으로 생성하게된다.
+- 생성하게 되면 서로의 의존관계에 맞게 스프링컨테이너가 주입하게 된다.
+- 기본적으로 HelloSpringApplication 하위 패키지를 찾아 등록하게 된다.
+- 기본으로 싱글톤으로 등록한다(유일하게 하나만 등록해서 공유한다)
+
+### JAVA 코드로 bean 등록
+- @Configuration 어노테이션으로 등록한 클래스 파일에서 @Bean 어노테이션을 통해 등록하게 된다.
+- DI에는 생성자 주입(), 필드주입 @Autowired, setter주입 setMemberService() > public 해야 한다.
+- 정형화 되지 않거나, 상황에 따라 구현 클래스를 변경해야 하면 설정을 통해 스프링 BEAN으로 등록한다.
+
+### GetMapping/PostMapping
 
 
-
+### DataBase 다운로드
+- https://www.h2database.com/html/main.html > DOWNLOAD > all Platforms > 압축파일 풀고
+- h2/bin/h2.bat(WINDOW 환경에선) 실행 
+- 처음엔 그냥 연결 > 그 후 부터 접속할때 JDBC URL > jdbc:h2:tcp://localhost/~/test로 변경하여 접속 
+- find /c -type f -name "test.mv.db" 2>/dev/null 명력어로 test.mv.db 파일의 위치를 확인할 수 있다.
+- 
    
+### 순수 JDBC
+
+
