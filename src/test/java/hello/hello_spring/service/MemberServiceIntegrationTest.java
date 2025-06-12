@@ -97,7 +97,5 @@ class MemberServiceIntegrationTest {
             if (m.getId().equals(mem1.getId())) {
             }
         });
-
-
     }
 }

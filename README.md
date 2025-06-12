@@ -73,4 +73,17 @@
 
 
 ### 스프링 JdbcTemplate
+- 기존의 반복 코드를 제거해준다.
+```
+RowMapper<E> 를 통해 쿼리의 결과값을 리턴받는 Domain에 셋팅해 리턴해준다.
+private RowMapper<Member> memberRowMapper() {
+        return (rs, rowNum) -> {
+            Member member = new Member();
+            member.setId(rs.getLong("id"));
+            member.setName(rs.getString("name"));
+            return member;
+        };
+    }
+```
 
+### JPA
