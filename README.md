@@ -55,5 +55,22 @@
 - 
    
 ### 순수 JDBC
+- 기존의 MemberRepository 를 확장하여 JdbcMemberRepository를 생성하여 DataSource 를 주입받고 
+- Connection을 생성하여 DB와 연결하여 실제 DATA를 처리할 수 있도록 하였다.
+- Connectiont 생성과 PrepareStatement, close 처리등이 반복된다.
 
+- Member ->     MemberRepository(interface)
+-                |                    |
+-         MemoryMemberRepository   JdbcMemberRepository     
+  
+
+
+### 스프링 통합 테스트
+- @SpringBootTest를 붙이면 스프링 컨테이너와 함께 테스트를 실행하게 된다.
+- 기본적인 Service와 Repository를 주입을 해준다.
+- Data는 insert, update .. 등등  commit 이 되어야 DB에 적용이 된다. (AutoCommit이 아닌경우) 하지만 @Transactional을
+- 붙이면 테스트 후에 rollback을 실행해주기 때문에 테스트가 계속 진행이 가능하다.
+
+
+### 스프링 JdbcTemplate
 

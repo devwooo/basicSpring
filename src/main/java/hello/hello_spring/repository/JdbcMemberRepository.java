@@ -24,14 +24,11 @@ public class JdbcMemberRepository implements MemberRepository {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            conn
-                    = getConnection();
-            pstmt
-                    = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, member.getName());
             pstmt.executeUpdate();
-            rs
-                    = pstmt.getGeneratedKeys();
+            rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 member.setId(rs.getLong(1));
             } else {
@@ -126,6 +123,7 @@ public class JdbcMemberRepository implements MemberRepository {
     }
 
     private Connection getConnection() {
+        //Database Connection을 유지시켜주기 위해 DataSourceUtils를 통해서 Connection을 생성한다.
         return DataSourceUtils.getConnection(dataSource);
     }
 
