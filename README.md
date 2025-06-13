@@ -87,3 +87,43 @@ private RowMapper<Member> memberRowMapper() {
 ```
 
 ### JPA
+- JPA dependency 추가 및 application-property JPA 속성 추가
+- 엔티티 맵핑해야 한다.
+- Service 계층에 @Transactional 어노테이션을 붙여줘 트랜잭션을 유지시켜준다.
+- ORM  Object 와 DB를 Mapping 시켜주는걸로 DTO에 @Entity 어노테이션을 붙여준다.
+- @ ID는 Primary Key를 지정해준다.
+- @ 자동생성 해주기위해  @GeneratedValue(strategy = GenerationType.IDENTITY) 어노테이션을 붙여준다
+- @Column(name = "name") // DB의 컬럼명 을 지정시켜주는 어노테이션이다
+- PK를 대상으로 조회하는 경우는 다음과 같이 조회한다
+```
+ Member member = em.find(Member.class, id);
+```
+- PK가 아닌경우는 다음과 같이 조회한다. JPQL을 사용한다.
+- 객체를 대상으로 쿼리를 날린다. Member Entity를 대상으로 조회하며 조회대상은 Entity 그자체 m을 조회한다.
+```
+==
+List<Member> result = em.createQuery("select m from Member m where m.name = :name", Member.class).setParameter("name", name).getResultList();
+return result.stream().findAny();
+==
+List<member> reuslt = em.createQuery("select m from Member m", Member.class).getResultList();
+==
+```
+
+
+### 스프링 데이터 JPA
+- 스프링 부트 + JPA > 스프링 데이터 JPA
+- 공부 순서 JPA > 스프링 데이터 JPA
+- interface를 생성하고 JpaRepository<Member, Long>, MemberRepository 를 상속하면
+- Spring data JPA가 자동으로 구현체를 만들어준다. 따라서 service에서 MemberRepository 만 주입해주면 한번에 해결된다.
+- 공통화 할 수 없는 메서드인경우는 interface에 직접 명시해준다.
+
+
+### AOP
+- 공통 관심사(cross-cutting concern) : 모든 부분에 동일하게 동작하는 부분 / 핵심 관심 사항(core concern) : 비즈니스 로직
+- AOP(Aspect Oriented Programing) : 공통 관심사와 핵심 관심사를 분리
+- @Aspect 어노테이션을 붙여줘야 하며, @Component 어노테이션을 붙여서 @Bean 등록을 하거나 아니면, Config에서 직접 @Bean 등록을 해준다.
+- 해당 공통 메서드의 실행 조건은 @Around 를 통해서 지정할 수 있다.
+- ProceedingJoinPoint 를 통해서 현재 진행중인 메서드 확인과, 다음을 호출할 수 있다. 
+- helloController -> 프록시 memberService ---(joinPoint.proceed())---> 실제 memberService
+
+

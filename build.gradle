@@ -25,7 +25,8 @@ dependencies {
 
 
 	// 순수 JDBC dependency 추가
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+//	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'com.h2database:h2'
 }
 

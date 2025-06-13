@@ -5,11 +5,14 @@ import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 //@Service
+//JPA를 사용할때는 @Transactional를 꼭 사용해야 한다.
+@Transactional
 public class MemberService {
     // Ctrl + Shift + T  Testcase 생성 단축키
     private final MemberRepository memberRepository;
@@ -32,12 +35,12 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원 입니다.");
         });*/
 
-
         // 위의 코드를 아래와 같이 사용 할 수 있다.
         // 메서드로 추출 Ctrl + Alt + M (+ M)
         vaildateDuplicateMember(member);
         memberRepository.save(member);
         return member.getId();
+
     }
 
     private void vaildateDuplicateMember(Member member) {
