@@ -127,3 +127,10 @@ List<member> reuslt = em.createQuery("select m from Member m", Member.class).get
 - helloController -> 프록시 memberService ---(joinPoint.proceed())---> 실제 memberService
 
 
+### @RequiredArgsConstructor
+-  초기화 되지않은 final 필드나, @NonNull 이 붙은 필드에 대해 생성자를 생성해 줍니다.
+- 새로운 필드를 추가할 때 다시 생성자를 만들어서 관리해야하는 번거로움을 없애준다. (@Autowired를 사용하지 않고 의존성 주입)
+
+
+### 참고 홈페이지
+- https://engkimbs.tistory.com/ 
